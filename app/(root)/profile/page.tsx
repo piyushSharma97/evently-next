@@ -6,5 +6,11 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 
 const ProfilePage = async ({ searchParams }: SearchParamProps) => {
-
+return(
+    <>
+    
+    </>
+)
 }
+
+export default ProfilePage
