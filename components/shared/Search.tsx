@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react'
-import { Input } from '../ui/input';
+import { Input } from '@/components/ui/input';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -14,7 +14,7 @@ function Search({ placeholder = 'Search title...' }: { placeholder?: string }) {
     const router = useRouter();
     const searchParams = useSearchParams();
   return (
-    <div className="flex-center min-h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+    <div className="flex-center min-h-[54px] w-full overflow-hidden rounded-full  px-4 py-2">
    <Image src="/assets/icons/search.svg" alt="search" width={24} height={24} />
 <Input
    type="text"
