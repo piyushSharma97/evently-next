@@ -4,7 +4,11 @@ import { WebhookEvent } from '@clerk/nextjs/server'
 import { createUser ,updateUser,deleteUser} from '@/lib/actions/user.actions'
 import { clerkClient } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
-
+export async function GET(req: Request) {
+  console.log('req: ', req.cache,req.credentials,await req.json());
+  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
+  console.log('WEBHOOK_SECRET:GET ', WEBHOOK_SECRET);
+}
 export async function POST(req: Request) {
     const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
     console.log('WEBHOOK_SECRET: ', WEBHOOK_SECRET);
