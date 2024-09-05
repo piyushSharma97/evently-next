@@ -7,6 +7,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
     const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
+    console.log('WEBHOOK_SECRET: ', WEBHOOK_SECRET);
  
     if (!WEBHOOK_SECRET) {
       throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local')
@@ -46,6 +47,7 @@ export async function POST(req: Request) {
   }
   const { id } = evt.data;
   const eventType = evt.type;
+  console.log('eventType: ', eventType);
   if(eventType === 'user.created') {
     const { id, image_url, first_name, last_name, username } = evt.data;
     const user = {
