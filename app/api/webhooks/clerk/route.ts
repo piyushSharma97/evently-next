@@ -8,7 +8,7 @@ export async function GET(req: Request) {
   console.log('req: ',req);
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
   console.log('WEBHOOK_SECRET:GET ', WEBHOOK_SECRET);
-  return new Response('')
+  return NextResponse.json({ message: 'OK'})
 }
 export async function POST(req: Request) {
   console.log('req:POST ',req);
