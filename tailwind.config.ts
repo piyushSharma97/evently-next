@@ -31,6 +31,7 @@ export default withUt( {
   			},
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',
+				  '50': 'hsl(210, 50%, 95%)', 
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			secondary: {

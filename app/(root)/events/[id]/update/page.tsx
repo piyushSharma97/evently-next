@@ -21,12 +21,12 @@ type UpdateEventProps = {
         </section>
   
         <div className="wrapper my-8">
-          {/* <EventForm 
+           <EventForm 
             type="Update" 
-            event={event} 
-            eventId={event._id} 
+            // event={event} 
+            // eventId={event._id} 
             userId={userId} 
-          /> */}
+          /> 
         </div>
       </>
     )
