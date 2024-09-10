@@ -6,6 +6,7 @@ import React from 'react'
 
 function page() {
     const { sessionClaims } = auth();
+    console.log('sessionClaims: ', sessionClaims);
     const userId = sessionClaims?.userId as string;
   return (
    <>
