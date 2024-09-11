@@ -40,6 +40,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const initialValues = event && type === 'Update' 
     ? { 
       ...event, 
+      categoryId:event.category._id,
       startDateTime: new Date(event.startDateTime), 
       endDateTime: new Date(event.endDateTime) 
     }
@@ -56,15 +57,15 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
      let uploadedImageUrl = values.imageUrl;
 
-    // if(files.length > 0) {
-    //   const uploadedImages = await startUpload(files)
+    if(files.length > 0) {
+      const uploadedImages = await startUpload(files)
 
-    //   if(!uploadedImages) {
-    //     return
-    //   }
+      if(!uploadedImages) {
+        return
+      }
 
-    //   uploadedImageUrl = uploadedImages[0].url
-    // }
+      uploadedImageUrl = uploadedImages[0].url
+    }
     if(type === 'Create') {
  
       try {

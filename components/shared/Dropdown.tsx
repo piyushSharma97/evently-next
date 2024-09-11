@@ -27,6 +27,7 @@ import {
   }
   
   const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
+    console.log('Dropdownvalue: ', value);
     const [categories, setCategories] = useState<ICategory[]>([])
     const [newCategory, setNewCategory] = useState('');
   
