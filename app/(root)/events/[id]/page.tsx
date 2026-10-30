@@ -4,12 +4,14 @@ import { getEventById, getRelatedEventsByCategory } from "@/lib/actions/event.ac
 import { SearchParamProps } from "@/types"
 import { formatDateTime } from '@/lib/utils';
 import Collection from "@/components/shared/Collection";
-const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) => {
+const EventDetails = async ({ params, searchParams }: SearchParamProps) => {
+    const { id } = await params;
+    const resolvedSearchParams = await searchParams;
     const event = await getEventById(id)
     const relatedEvents = await getRelatedEventsByCategory({
         categoryId: event.category._id,
         eventId: event._id,
-        page: searchParams.page as string,
+        page: resolvedSearchParams?.page as string,
       })
     
 
@@ -67,7 +69,7 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
                         </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <p className="p-bold-20 text-grey-600">What You'll Learn:</p>
+                        <p className="p-bold-20 text-grey-600">What You&apos;ll Learn:</p>
                         <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
                         <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">{event.url}</p>
                     </div>
@@ -83,7 +85,7 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
           emptyStateSubtext="Come back later"
           collectionType="All_Events"
           limit={3}
-          page={searchParams.page as string}
+          page={resolvedSearchParams?.page as string}
           totalPages={relatedEvents?.totalPages}
         />
             </section>

@@ -1,11 +1,9 @@
-
-
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import EventForm from "@/components/shared/EventForm";
 import React from 'react'
 
-function page() {
-    const { sessionClaims } = auth();
+async function page() {
+    const { sessionClaims } = await auth();
     console.log('sessionClaims: ', sessionClaims);
     const userId = sessionClaims?.userId as string;
   return (
