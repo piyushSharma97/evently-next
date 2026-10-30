@@ -1,4 +1,8 @@
-# Evently
+
+# evently-next
+Next app on Creating event
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 Evently is an event discovery and management app built with Next.js. Browse events, filter by category, and create and manage events after signing in.
 
