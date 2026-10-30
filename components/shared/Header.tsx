@@ -1,42 +1,49 @@
-
 import Image from "next/image"
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import Link from "next/link"
 import { Button } from "../ui/button"
 import NavItems from "./NavItems"
 import MobileNav from "./MobileNav"
-export default function Header() {
+import RoleIndicator from "./RoleIndicator"
+import { getCurrentUserContext } from "@/lib/auth/guard"
 
-    return (
-        <header className="w-full border-b">
-            <div className="wrapper flex items-center justify-between">
-                <Link href="/" className="w-36">
-                    <Image
-                        src="/assets/images/logo.svg" width={128} height={38}
-                        alt="Evently logo"
-                    />
-                </Link>
+export default async function Header() {
+  const ctx = await getCurrentUserContext();
+  const userRole = ctx.userRole || 'user';
 
-                <SignedIn>
-                    <nav className="md:flex-between hidden w-full max-w-xs">
-                        <NavItems />
-                    </nav>
-                </SignedIn>
+  return (
+    <header className="w-full border-b">
+      <div className="wrapper flex items-center justify-between">
+        <Link href="/" className="w-36">
+          <Image
+            src="/assets/images/logo.svg"
+            width={128}
+            height={38}
+            alt="Evently logo"
+          />
+        </Link>
 
-                <div className="flex w-32 justify-end gap-3">
-                    <SignedIn>
-                        <UserButton afterSignOutUrl="/" />
-                        <MobileNav />
-                    </SignedIn>
-                    <SignedOut>
-                        <Button asChild className="rounded-full" size="lg">
-                            <Link href="/sign-in">
-                                Login
-                            </Link>
-                        </Button>
-                    </SignedOut>
-                </div>
-            </div>
-        </header>
-    )
+        <SignedIn>
+          <nav className="md:flex-between hidden w-full max-w-md">
+            <NavItems userRole={userRole} />
+          </nav>
+        </SignedIn>
+
+        <div className="flex items-center justify-end gap-3">
+          <SignedIn>
+            {ctx.clerkId && (
+              <RoleIndicator clerkId={ctx.clerkId} initialRole={userRole} />
+            )}
+            <UserButton afterSignOutUrl="/" />
+            <MobileNav userRole={userRole} />
+          </SignedIn>
+          <SignedOut>
+            <Button asChild className="rounded-full" size="lg">
+              <Link href="/sign-in">Login</Link>
+            </Button>
+          </SignedOut>
+        </div>
+      </div>
+    </header>
+  );
 }

@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { WebhookEvent, clerkClient } from '@clerk/nextjs/server'
 import { createUser, updateUser, deleteUser } from '@/lib/actions/user.actions'
 import { NextResponse } from 'next/server'
+import { UserRole } from '@/lib/auth/roles'
 
 export async function GET(req: Request) {
   console.log('req: ', req);
@@ -60,19 +61,22 @@ export async function POST(req: Request) {
 
   if (eventType === 'user.created') {
     const { id, image_url, first_name, last_name, username } = evt.data;
+    const userRole = (((evt.data as any).public_metadata?.role as string) || 'user') as UserRole;
     const user = {
       clerkId: id,
       username: username!,
       firstName: first_name ?? '',
       lastName: last_name ?? '',
       photo: image_url,
+      role: userRole,
     }
     const newUser = await createUser(user);
     if (newUser) {
       const client = await clerkClient();
       await client.users.updateUserMetadata(id, {
         publicMetadata: {
-          userId: newUser._id
+          userId: newUser._id,
+          role: userRole,
         }
       })
     }

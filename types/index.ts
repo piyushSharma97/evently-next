@@ -1,3 +1,5 @@
+import { UserRole } from "@/lib/auth/roles";
+
 // ====== USER PARAMS
 export type CreateUserParams = {
     clerkId: string
@@ -5,6 +7,7 @@ export type CreateUserParams = {
     lastName: string
     username: string
     photo: string
+    role?: UserRole
   }
   
   export type UpdateUserParams = {
@@ -12,6 +15,7 @@ export type CreateUserParams = {
     lastName: string
     username: string
     photo: string
+    role?: UserRole
   }
   
   // ====== EVENT PARAMS
